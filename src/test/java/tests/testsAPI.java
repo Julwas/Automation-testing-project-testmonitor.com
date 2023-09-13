@@ -15,7 +15,7 @@ public class testsAPI extends BaseTest {
     @Test(description = "Тест на создание сущности")
     public void addProject(){
         open(ReadProperties.getUrl());
-        loginStep.succesLogin(ReadProperties.email(),ReadProperties.password());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
 
         myProjectsPage.createProject(ReadProperties.name());
         Assert.assertTrue(myProjectsPage.getProject().isEnabled());
