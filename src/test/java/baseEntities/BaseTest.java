@@ -14,6 +14,8 @@ public class BaseTest {
 
     protected LoginStep loginStep;
     protected MyProjectsPage myProjectsPage;
+
+
     @BeforeMethod
     public void setUp() {
         Configuration.baseUrl = ReadProperties.getUrl();
@@ -21,7 +23,6 @@ public class BaseTest {
 
         loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();
-
 
         open(ReadProperties.getUrl());
     }
