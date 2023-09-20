@@ -1,49 +1,55 @@
 package tests.api;
 
 import baseEntities.BaseApiTest;
-import org.testng.annotations.Test;
+import com.google.gson.Gson;
+
+import io.restassured.mapper.ObjectMapperType;
+
+import models.Project;
 import org.apache.http.HttpStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import org.testng.annotations.Test;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import static io.restassured.RestAssured.given;
 
+
 public class ApiTests extends BaseApiTest {
-    // static Logger logger = LogManager.getLogger(ApiTests.class);
-    @Test
-    public void Test() {
-        String endpoint = "/api/v1/users";
-
-        given()
-                .when()
-                .get(endpoint)
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK);
-    }
+    static Logger logger = LogManager.getLogger(ApiTests.class);
 
     @Test
-    public void TestAdd() {
+    public void addProject() throws FileNotFoundException {
+
+        Gson gson = new Gson();
 
         String endpoint = "/api/v1/projects";
 
-        given().body(String.format("{\n" +
-                        "\"name\": \"Project T\",\n" +
-                        "\"description\": \"testing project\",\n" +
-                        "\"starts_at\": \"2022-01-01\",\n" +
-                        "\"ends_at\": \"2022-01-01\",\n" +
-                        "\"uses_applications\": true,\n" +
-                        "\"uses_requirements\": true,\n" +
-                        "\"uses_risks\": true,\n" +
-                        "\"uses_issues\": true,\n" +
-                        "\"uses_messages\": true,\n" +
-                        "\"completed\": true,\n" +
-                        "\"symbol_id\": 42\n" +
-                        "}"))
+        String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
+
+        FileReader reader = new FileReader(pathToFile);
+
+        Project expectedProject = gson.fromJson(reader, Project.class);
+
+        given()
+                .body(expectedProject, ObjectMapperType.GSON)
+                .log().all()
                 .when()
                 .post(endpoint)
                 .then()
                 .log().body()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_CREATED)
+                .extract().response();
+
+        //  Project actualProject = gson.fromJson(response.getBody().asString(), Project.class);
+
+       /* logger.info("Actual project: " + actualProject.toString());
+        logger.info("Expected project: " + expectedProject.toString());
+
+        Assert.assertTrue(expectedProject.equals(actualProject));*/
 
     }
-
 }
