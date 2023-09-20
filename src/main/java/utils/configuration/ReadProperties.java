@@ -30,7 +30,9 @@ public class ReadProperties {
     public static String password() {
         return properties.getProperty("password");
     }
-
+public static String getToken() {
+        return properties.getProperty("token");
+    }
     public static String name() {
         return properties.getProperty("name");
 
