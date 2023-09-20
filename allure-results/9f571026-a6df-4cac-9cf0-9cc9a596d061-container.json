@@ -1,0 +1,1 @@
+{"uuid":"9f571026-a6df-4cac-9cf0-9cc9a596d061","name":"Diplom","children":["d8a1e842-ce0d-4f96-a9d0-2ee778646e87"],"befores":[{"name":"setUpApi","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1695044115381,"stop":1695044117107}],"afters":[],"start":1695044115287,"stop":1695044122362}

@@ -7,7 +7,6 @@ public class BaseStep {
     protected LoginPage loginPage;
     protected MyProjectsPage myProjectsPage;
 
-
     public BaseStep() {
 
         loginPage = new LoginPage();
