@@ -96,9 +96,4 @@ public class MyProjectsPage extends BasePage {
         String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();
         getDownloadFileButton().sendKeys(pathToFile.substring(1));
     }
-    /*public void setIncorrectEmail (String email)
-    {
-        getEmailInput().setValue(email);
-        saveChangesButton().click();
-    }*/
 }

@@ -93,17 +93,4 @@ public class UItests extends BaseTest {
         Assert.assertTrue(myProjectsPage.getDialogBox().isEnabled());
         logger.info("DialogBoxTest. Dialog box is displayed.");
     }
-    //Не понятно как сделать локатор, так как поле для вставки появляется после клика на поле и id поля меняется каждый раз
-    //@Test(description = "Тест на использование некорректных данных.")
-    /*public void IncorrectDataTest()
-    {
-        open(ReadProperties.getUrl());
-        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
-        open(ReadProperties.getMyAccountUrl());
-        String inputEmail = "abeganskaya98gmail.com";
-        myProjectsPage.setIncorrectEmail(inputEmail);
-        Assert.assertTrue(myProjectsPage.saveChangesButton().isEnabled());
-        logger.info("IncorrectDataTest.");
-
-    }*/
 }
