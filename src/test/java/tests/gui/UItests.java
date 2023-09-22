@@ -85,7 +85,28 @@ public class UItests extends BaseTest {
 
         logger.info("ExceedingMaxTest. There is impossible to enter more characters than 100.");
     }
-
+    @Description("Сheck for successful file upload.")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на загрузку файла.")
+    public void LoadFileTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.loadFile();
+        Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());
+        logger.info("LoadFileTest. File is load.");
+    }
+    @Description("Check for successful display of the dialog box.")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на отображение диалогового окна.")
+    public void DialogBoxTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.showDialog();
+        Assert.assertTrue(myProjectsPage.getDialogBox().isEnabled());
+        logger.info("DialogBoxTest. Dialog box is displayed.");
+    }
     @Override
     public void onTestFailure(ITestResult result) {
 
