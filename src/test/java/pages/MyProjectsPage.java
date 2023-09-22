@@ -22,6 +22,9 @@ public class MyProjectsPage extends BasePage {
     private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
     private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test,jpg')]");
     private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
+    //private final By emailInputLocator = By.xpath(""); Не понятно как сделать локатор, так как поле для вставки появляется после клика на поле и id поля меняется каждый раз
+    private final By saveChangesLocator = By.xpath("//svg[@class='svg-inline--fa fa-floppy-disk']");
+    private final By emailIncorrectMessageLocator = By.xpath("//span[contains(text(), 'The email address must be a valid email address.')]");
 
 
     @Override
@@ -52,6 +55,8 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
+    //public SelenideElement getEmailInput() {return $(emailInputLocator);}
+    public SelenideElement saveChangesButton() {return $(saveChangesLocator);}
 
 
     public void createProject(String name) {
@@ -91,6 +96,9 @@ public class MyProjectsPage extends BasePage {
         String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();//почему-то не находит в таргете??
         getDownloadFileButton().sendKeys(pathToFile);
     }
-
-
+    /*public void setIncorrectEmail (String email)
+    {
+        getEmailInput().setValue(email);
+        saveChangesButton().click();
+    }*/
 }

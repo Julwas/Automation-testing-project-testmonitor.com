@@ -18,6 +18,10 @@ public class ReadProperties {
     public static String getUrl() {
         return properties.getProperty("url");
     }
+    public static String getMyAccountUrl()
+    {
+        return properties.getProperty("myaccurl");
+    }
 
     public static String browserName() {
         return properties.getProperty("browser");
