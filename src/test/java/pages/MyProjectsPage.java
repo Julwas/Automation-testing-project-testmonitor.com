@@ -17,7 +17,13 @@ public class MyProjectsPage extends BasePage {
     private final By projectLocator = By.xpath("//h3[contains(text(),'myProject')]");
     private final By buttonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");
     private final By projectWebUpLocator = By.xpath("//h3[contains(text(),'Web Application Starter Kit')]");
-
+    private final By myWorkLocator = By.xpath("//a[contains(text(),'My Work')]");
+    private final By playButtonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");
+    private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
+    private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test.jpg')]");
+    private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
+    private final By saveChangesLocator = By.xpath("//svg[@class='svg-inline--fa fa-floppy-disk']");
+    private final By emailIncorrectMessageLocator = By.xpath("//span[contains(text(), 'The email address must be a valid email address.')]");
     @Override
     protected By getPageIdentifier() {
         return null;
@@ -42,7 +48,12 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getProject() {return $(projectLocator);}
     public SelenideElement getProjectWebUp() {return $(projectWebUpLocator);}
     public SelenideElement getButton() {return $(buttonLocator);}
-
+    public SelenideElement getMyWorkButton(){return $(myWorkLocator);}
+    public SelenideElement getPlayButton(){return $(playButtonLocator);}
+    public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
+    public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
+    public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
+    public SelenideElement saveChangesButton() {return $(saveChangesLocator);}
     public void createProject(String name) {
         getMenageButton().click();
         getCreateButton().click();
@@ -59,7 +70,18 @@ public class MyProjectsPage extends BasePage {
         getMenageButton().click();
         getCreateButton().click();
     }
-
+    public void showDialog ()
+    {
+        getMenageButton().click();
+        getCreateButton().click();
+    }
+    public void loadFile()
+    {
+        getMyWorkButton().click();
+        getPlayButton().click();
+        String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();
+        getDownloadFileButton().sendKeys(pathToFile.substring(1));
+    }
     public String getProjectName() {
         return getNameInput().getValue();
     }
