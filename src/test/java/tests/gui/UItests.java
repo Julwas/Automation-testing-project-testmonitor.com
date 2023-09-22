@@ -17,7 +17,7 @@ import static utils.TestUtils.generateString;
 public class UItests extends BaseTest {
     Logger logger = LogManager.getLogger(UItests.class);
 
-    @Test(description = "тест на проверку всплывающего сообщения.")
+    @Test(description = "Тест на проверку всплывающего сообщения.")
     public void PopUpMessageTest() {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
@@ -34,7 +34,7 @@ public class UItests extends BaseTest {
         logger.info("PopUpMessageTest. The 'View comments' pop-up message is present.");
     }
 
-    @Test(description = "Тест на создание сущности")
+    @Test(description = "Тест на создание сущности.")
     public void CreationEntityTest  () {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
@@ -44,7 +44,7 @@ public class UItests extends BaseTest {
 
         logger.info(" CreationEntityTest. Entity Myproject was created.");
     }
-    @Test(description = "тест на проверку поля для ввода на граничные значения.")
+    @Test(description = "Тест на проверку поля для ввода на граничные значения.")
     public void BoundaryValuesTest (){
 
         open(ReadProperties.getUrl());
@@ -62,7 +62,7 @@ public class UItests extends BaseTest {
 
         logger.info("BoundaryValuesTest. The maximum number of input characters field is 100.");
     }
-    @Test(description = " тест на ввод данных превышающих допустимые")
+    @Test(description = "Тест на ввод данных превышающих допустимые.")
     public void ExceedingMaxTest (){
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
@@ -74,4 +74,35 @@ public class UItests extends BaseTest {
 
         logger.info("ExceedingMaxTest. There is impossible to enter more characters than 100.");
     }
+
+    @Test(description = "Тест на загрузку файла.")//проблема: почему то не находит в таргете?
+    public void LoadFileTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.loadFile();
+        Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());
+        logger.info("LoadFileTest. File is load.");
+    }
+    @Test(description = "Тест на отображение диалогового окна.")
+    public void DialogBoxTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.showDialog();
+        Assert.assertTrue(myProjectsPage.getDialogBox().isEnabled());
+        logger.info("DialogBoxTest. Dialog box is displayed.");
+    }
+
+
+    /* @Test(description = "Тест на удаление сущности")
+    public void DeleteEntityTest  () {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
+
+        myProjectsPage.deleteProject(ReadProperties.name());
+        Assert.assertTrue(myProjectsPage.getProject().isEnabled());
+
+        logger.info(" CreationEntityTest. Entity Myproject was deleted.");
+    }*/
 }
