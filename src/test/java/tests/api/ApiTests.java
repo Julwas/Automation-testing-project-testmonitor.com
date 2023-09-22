@@ -3,13 +3,18 @@ package tests.api;
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.restassured.RestAssured;
 import io.restassured.mapper.ObjectMapperType;
 
+import io.restassured.response.Response;
 import models.Project;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
@@ -21,6 +26,7 @@ import static io.restassured.RestAssured.given;
 public class ApiTests extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiTests.class);
 
+    private Project actualProject;
     @Test
     public void addProject() throws FileNotFoundException {
 
@@ -34,7 +40,7 @@ public class ApiTests extends BaseApiTest {
 
         Project expectedProject = gson.fromJson(reader, Project.class);
 
-        given()
+        Response response = given()
                 .body(expectedProject, ObjectMapperType.GSON)
                 .log().all()
                 .when()
@@ -44,12 +50,15 @@ public class ApiTests extends BaseApiTest {
                 .statusCode(HttpStatus.SC_CREATED)
                 .extract().response();
 
-        //  Project actualProject = gson.fromJson(response.getBody().asString(), Project.class);
+        JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
+        JsonElement respAsJsonElement = respAsJsonObject.getAsJsonObject("data");
 
-       /* logger.info("Actual project: " + actualProject.toString());
+        actualProject = gson.fromJson(respAsJsonElement, Project.class);
+
+        logger.info("Actual project: " + actualProject.toString());
         logger.info("Expected project: " + expectedProject.toString());
 
-        Assert.assertTrue(expectedProject.equals(actualProject));*/
+        Assert.assertTrue(expectedProject.equals(actualProject));
 
     }
 }
