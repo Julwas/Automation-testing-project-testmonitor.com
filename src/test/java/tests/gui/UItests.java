@@ -75,7 +75,7 @@ public class UItests extends BaseTest {
         logger.info("ExceedingMaxTest. There is impossible to enter more characters than 100.");
     }
 
-    @Test(description = "Тест на загрузку файла.")//проблема: почему то не находит в таргете?
+    @Test(description = "Тест на загрузку файла.")
     public void LoadFileTest()
     {
         open(ReadProperties.getUrl());

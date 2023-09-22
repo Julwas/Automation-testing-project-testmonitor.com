@@ -20,7 +20,7 @@ public class MyProjectsPage extends BasePage {
     private final By myWorkLocator = By.xpath("//a[contains(text(),'My Work')]");
     private final By playButtonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");
     private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
-    private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test,jpg')]");
+    private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test.jpg')]");
     private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
     //private final By emailInputLocator = By.xpath(""); Не понятно как сделать локатор, так как поле для вставки появляется после клика на поле и id поля меняется каждый раз
     private final By saveChangesLocator = By.xpath("//svg[@class='svg-inline--fa fa-floppy-disk']");
@@ -93,8 +93,8 @@ public class MyProjectsPage extends BasePage {
     {
         getMyWorkButton().click();
         getPlayButton().click();
-        String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();//почему-то не находит в таргете??
-        getDownloadFileButton().sendKeys(pathToFile);
+        String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();
+        getDownloadFileButton().sendKeys(pathToFile.substring(1));
     }
     /*public void setIncorrectEmail (String email)
     {
