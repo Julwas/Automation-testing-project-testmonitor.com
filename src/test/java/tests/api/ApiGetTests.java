@@ -3,7 +3,6 @@ package tests.api;
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;

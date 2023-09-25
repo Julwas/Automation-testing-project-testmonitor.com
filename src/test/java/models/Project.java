@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.SerializedName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
+import org.testng.ITestResult;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import lombok.*;
 public class Project {
     @EqualsAndHashCode.Exclude
     @SerializedName(value = "id")
-    private int projectId;
+    public int projectId;
 
     private String name;
     private String description;
@@ -23,5 +23,6 @@ public class Project {
     @SerializedName(value = "symbol_id")
     @JsonProperty("symbol_id")
     private int symbolId;
+
 
 }

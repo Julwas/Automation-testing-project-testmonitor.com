@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.restassured.RestAssured;
+
 import io.restassured.mapper.ObjectMapperType;
 
 import io.restassured.response.Response;
@@ -27,6 +27,7 @@ public class ApiTests extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiTests.class);
 
     private Project actualProject;
+
     @Test
     public void addProject() throws FileNotFoundException {
 
