@@ -1,12 +1,8 @@
 package pages;
 
 import baseEntities.BasePage;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.conditions.Exist;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
@@ -20,10 +16,8 @@ public class MyProjectsPage extends BasePage {
     private final By buttonTemplateLocator = By.xpath("//button//span[contains(text(),'Template')]");
     private final By buttonCreateLocator = By.xpath("//span[contains(text(),'Create')]");
     private final By projectLocator = By.xpath("//h3[contains(text(),'myProject')]");
-    private final By buttonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");//+
-    private final By projectWebUpLocator = By.xpath("//h3[contains(text(),'Web Application Starter Kit')]");//-
+    private final By buttonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");
     private final By myWorkLocator = By.xpath("//a[contains(text(),'My Work')]");
-    private final By playButtonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");//-
     private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
     private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test.jpg')]");
     private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
@@ -51,11 +45,9 @@ public class MyProjectsPage extends BasePage {
         return $(buttonCreateLocator);
     }
     public SelenideElement getProject() {return $(projectLocator);}
-    public SelenideElement getProjectWebUp() {return $(projectWebUpLocator);}
     public SelenideElement getButton() {return $(buttonLocator);}
 
     public SelenideElement getMyWorkButton(){return $(myWorkLocator).should(exist);}
-    public SelenideElement getPlayButton(){return $(playButtonLocator);}
     public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}

@@ -23,8 +23,8 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 
-public class ApiGetTests extends BaseApiTest {
-    static Logger logger = LogManager.getLogger(ApiGetTests.class);
+public class ApiGetAllProjectsTest extends BaseApiTest {
+    static Logger logger = LogManager.getLogger(ApiGetAllProjectsTest.class);
 
     @Test
     public void getAllProjects() throws FileNotFoundException {
@@ -64,5 +64,4 @@ public class ApiGetTests extends BaseApiTest {
         logger.info("Last added project is in the list");
 
     }
-
 }
