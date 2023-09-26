@@ -18,7 +18,7 @@ public class ApiGetProjectTest extends BaseApiTest {
 
     @Test
     public void getProject() throws FileNotFoundException {
-        int projectId = 1;
+        int projectId = 3;
         Gson gson = new Gson();
 
         String endpoint = "/api/v1/projects/{projectId}";
@@ -35,12 +35,12 @@ public class ApiGetProjectTest extends BaseApiTest {
                 .pathParams("projectId", projectId)
                 .get(endpoint);
 
-        Project actualProject = gson.fromJson(response.getBody().asString(), Project.class);
+        Project actualProject = gson.fromJson(response.getBody().asString(), Project.class);// <-----0???
 
         logger.info("actualProject " + actualProject.toString());
 
         //System.out.println("actualProject " + actualProject.toString());
-        Assert.assertNotEquals(expectedProject, actualProject);
+        Assert.assertNotEquals(expectedProject, actualProject);// нужно бы Equals
 
 
     }

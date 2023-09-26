@@ -16,7 +16,7 @@ import org.testng.ITestResult;
 public class Project {
 
     @EqualsAndHashCode.Exclude
-    @SerializedName(value = "Id")
+    @SerializedName(value = "id")
     private int projectId;
 
     private String name;

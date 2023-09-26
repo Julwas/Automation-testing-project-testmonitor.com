@@ -42,7 +42,7 @@ public class ApiGetUserTest extends BaseApiTest {
                 .pathParam("userId", userId)
                 .get(endpoint);
 
-        User actualUser = gson.fromJson(response.getBody().asString(), User.class);
+        User actualUser = gson.fromJson(response.getBody().asString(), User.class);//то же самое
 
      System.out.println(actualUser.toString());
        // Assert.assertTrue(expectedUser.equals(actualUser));
