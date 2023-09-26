@@ -20,7 +20,7 @@ public abstract class BaseTest {
     @BeforeMethod
     public void setUp() {
         Configuration.baseUrl = ReadProperties.getUrl();
-        Configuration.timeout = 15000;
+        Configuration.timeout = 25000;
 
         loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();

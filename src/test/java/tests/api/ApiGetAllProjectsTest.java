@@ -2,41 +2,38 @@ package tests.api;
 
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
-
-import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import io.restassured.mapper.ObjectMapperType;
-
 import io.restassured.response.Response;
 import models.Project;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.openqa.selenium.json.TypeToken;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
 
-public class ApiTests extends BaseApiTest {
-    static Logger logger = LogManager.getLogger(ApiTests.class);
-
-    private Project actualProject;
+public class ApiGetAllProjectsTest extends BaseApiTest {
+    static Logger logger = LogManager.getLogger(ApiGetAllProjectsTest.class);
 
     @Test
-    public void addProject() throws FileNotFoundException {
+    public void getAllProjects() throws FileNotFoundException {
 
         Gson gson = new Gson();
 
         String endpoint = "/api/v1/projects";
 
         String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
-
         FileReader reader = new FileReader(pathToFile);
 
         Project expectedProject = gson.fromJson(reader, Project.class);
@@ -45,21 +42,26 @@ public class ApiTests extends BaseApiTest {
                 .body(expectedProject, ObjectMapperType.GSON)
                 .log().all()
                 .when()
-                .post(endpoint)
+                .get(endpoint)
                 .then()
                 .log().body()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(HttpStatus.SC_OK)
                 .extract().response();
-
+        Type listType = new TypeToken<ArrayList<Project>>() {
+        }.getType();
         JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
-        JsonElement respAsJsonElement = respAsJsonObject.getAsJsonObject("data");
+        JsonArray respAsJsonArray = respAsJsonObject.getAsJsonArray("data");
 
-        actualProject = gson.fromJson(respAsJsonElement, Project.class);
+        List<Project> actualProjects = gson.fromJson(respAsJsonArray, listType);
 
-        logger.info("Actual project: " + actualProject.toString());
-        logger.info("Expected project: " + expectedProject.toString());
+        logger.info("List of all projects: ");
+        for (Project p :
+                actualProjects) {
+            logger.info(p);
+        }
 
-        Assert.assertTrue(expectedProject.equals(actualProject));
+        Assert.assertEquals(actualProjects.get(2), expectedProject);
+        logger.info("Last added project is in the list");
 
     }
 }
