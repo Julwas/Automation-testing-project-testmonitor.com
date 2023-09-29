@@ -2,8 +2,12 @@ package tests.api;
 
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import models.Project;
+import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
@@ -12,10 +16,9 @@ import static io.restassured.RestAssured.given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public class ApiGetProjectTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetProjectTest.class);
-
+    private Project actualProject;
     @Test
     public void getProject() throws FileNotFoundException {
         int projectId = 3;
@@ -33,15 +36,24 @@ public class ApiGetProjectTest extends BaseApiTest {
 
         Response response = given()
                 .pathParams("projectId", projectId)
-                .get(endpoint);
+                .body(expectedProject, ObjectMapperType.GSON)
+                .log().all()
+                .when()
+                .get(endpoint)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .response();
 
-        Project actualProject = gson.fromJson(response.getBody().asString(), Project.class);// <-----0???
+        JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
 
-        logger.info("actualProject " + actualProject.toString());
+        JsonElement respAsJsonElement = respAsJsonObject.getAsJsonObject("data");
+        actualProject = gson.fromJson(respAsJsonElement, Project.class);
 
-        //System.out.println("actualProject " + actualProject.toString());
-        Assert.assertNotEquals(expectedProject, actualProject);// нужно бы Equals
+        logger.info("actualProject : " + actualProject.toString());
+        logger.info("Expected project : " + expectedProject.toString());
 
-
+        Assert.assertEquals(actualProject, expectedProject);
     }
 }
