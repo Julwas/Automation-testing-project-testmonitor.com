@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.given;
 public class ApiGetTestUsers extends BaseApiTest {
 static Logger logger = LogManager.getLogger(ApiGetTestUsers.class);
    //Gson gson = new Gson();
-    @Test
+   /* @Test
     public void GetUsers(){
         String endpoint = "/api/v1/users";
 
@@ -24,9 +24,10 @@ static Logger logger = LogManager.getLogger(ApiGetTestUsers.class);
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .log().body();
-    }
 
-   /* @Test
+    }
+*/
+ @Test
     public void GetUser(){
 
         String endpoint = "/api/v1/users/{userId}";
@@ -52,7 +53,7 @@ static Logger logger = LogManager.getLogger(ApiGetTestUsers.class);
                 .as(User.class);
 
         System.out.println(actualUser.toString());
-        Assert.assertNotEquals(expectedUser, actualUser);
-    }*/
+        Assert.assertEquals(expectedUser, actualUser);
+    }
     }
 

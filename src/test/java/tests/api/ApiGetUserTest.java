@@ -3,8 +3,13 @@ package tests.api;
 
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
+import models.Project;
 import models.User;
+import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -20,11 +25,11 @@ import static io.restassured.RestAssured.given;
 
 public class ApiGetUserTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetUserTest.class);
-
+    private User actualUser;
     @Test
     public void getUser() throws FileNotFoundException {
 
-        int userId = 2;
+        int userId = 1;
 
         Gson gson = new Gson();
 
@@ -39,12 +44,27 @@ public class ApiGetUserTest extends BaseApiTest {
 
 
         Response response = given()
-                .pathParam("userId", userId)
-                .get(endpoint);
+                .pathParams("userId", userId)
+                .body(expectedUser, ObjectMapperType.GSON)
+                .log().all()
+                .when()
+                .get(endpoint)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .response();
 
-        User actualUser = gson.fromJson(response.getBody().asString(), User.class);//то же самое
+        JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
+
+        JsonElement respAsJsonElement = respAsJsonObject.getAsJsonObject("data");
+        actualUser = gson.fromJson(respAsJsonElement, User.class);
+
 
      System.out.println(actualUser.toString());
-       // Assert.assertTrue(expectedUser.equals(actualUser));
+        logger.info("actual User : " + actualUser.toString());
+        logger.info("Expected User : " + expectedUser.toString());
+
+        Assert.assertEquals(actualUser, expectedUser);
     }
 }
