@@ -18,8 +18,8 @@ import static com.codeborne.selenide.Selenide.*;
 import static utils.TestUtils.generateString;
 
 
-public class UItests extends BaseTest {
-    Logger logger = LogManager.getLogger(UItests.class);
+public class UITests extends BaseTest {
+    Logger logger = LogManager.getLogger(UITests.class);
 
     @Description("Verifies the presence of a pop-up message.")
     @Severity(SeverityLevel.NORMAL)
