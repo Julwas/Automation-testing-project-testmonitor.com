@@ -14,7 +14,7 @@ public class MyProjectsPage extends BasePage {
     private final static String pagePath = "/settings/projects";
     private final By menageButtonLocator = By.xpath("//a[contains(text(),'Manage Projects')]");
     private final By createButtonLocator = By.xpath("//button[contains(text(),'Create project...')]");
-    private final By nameInputLocator = By.xpath("//input[@id='field-37']");
+    private final By nameInputLocator = By.xpath("//input[starts-with(@id, 'field')]");
     private final By buttonFeaturesLocator = By.xpath("//span[contains(text(),'Features')]");
     private final By buttonTemplateLocator = By.xpath("//button//span[contains(text(),'Template')]");
     private final By buttonCreateLocator = By.xpath("//span[contains(text(),'Create')]");
