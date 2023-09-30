@@ -40,7 +40,7 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getCreateButton() {
         return $(createButtonLocator);
     }
-    public SelenideElement getNameInput() {return $(nameInputLocator);}
+    public SelenideElement getNameInput() {return $(nameInputLocator).shouldBe(visible, Duration.ofSeconds(20));}
      public SelenideElement getButtonFeatures() {
         return $(buttonFeaturesLocator);
     }
@@ -54,7 +54,7 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getDefectProject() {return $(projectDefectLocator);}
     public SelenideElement getButton() {return $(buttonLocator);}
 
-    public SelenideElement getMyWorkButton(){return $(myWorkLocator).should(exist);}
+    public SelenideElement getMyWorkButton(){return $(myWorkLocator).shouldBe(visible, Duration.ofSeconds(60));}
     public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
