@@ -4,14 +4,17 @@ import baseEntities.BasePage;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.exist;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class MyProjectsPage extends BasePage {
     private final static String pagePath = "/settings/projects";
     private final By menageButtonLocator = By.xpath("//a[contains(text(),'Manage Projects')]");
     private final By createButtonLocator = By.xpath("//button[contains(text(),'Create project...')]");
-    private final By nameInputLocator = By.id("field-37");
+    private final By nameInputLocator = By.xpath("//input[@id='field-37']");
     private final By buttonFeaturesLocator = By.xpath("//span[contains(text(),'Features')]");
     private final By buttonTemplateLocator = By.xpath("//button//span[contains(text(),'Template')]");
     private final By buttonCreateLocator = By.xpath("//span[contains(text(),'Create')]");
@@ -33,8 +36,7 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getCreateButton() {
         return $(createButtonLocator);
     }
-    public SelenideElement getNameInput() {return $(nameInputLocator);
-    }
+    public SelenideElement getNameInput() {return $(nameInputLocator).shouldBe(visible, Duration.ofSeconds(20));}
      public SelenideElement getButtonFeatures() {
         return $(buttonFeaturesLocator);
     }
@@ -47,7 +49,7 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getProject() {return $(projectLocator);}
     public SelenideElement getButton() {return $(buttonLocator);}
 
-    public SelenideElement getMyWorkButton(){return $(myWorkLocator).should(exist);}
+    public SelenideElement getMyWorkButton(){return $(myWorkLocator).shouldBe(visible, Duration.ofSeconds(60));}
     public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
@@ -61,7 +63,6 @@ public class MyProjectsPage extends BasePage {
         getButtonCreate().click();
     }
     public void checkPopUpMessage(){
-
         getMyWorkButton().click();
         getButton().click();
     }
