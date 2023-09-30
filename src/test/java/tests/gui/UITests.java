@@ -2,6 +2,7 @@ package tests.gui;
 
 
 import baseEntities.BaseTest;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
@@ -14,12 +15,13 @@ import org.testng.ITestResult;
 import org.testng.annotations.Test;
 import utils.configuration.ReadProperties;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static utils.TestUtils.generateString;
 
 
-public class UItests extends BaseTest {
-    Logger logger = LogManager.getLogger(UItests.class);
+public class UITests extends BaseTest {
+    Logger logger = LogManager.getLogger(UITests.class);
 
     @Description("Verifies the presence of a pop-up message.")
     @Severity(SeverityLevel.NORMAL)
@@ -99,7 +101,7 @@ public class UItests extends BaseTest {
         Assert.assertTrue(myProjectsPage.getDialogBox().isEnabled());
         logger.info("DialogBoxTest. Dialog box is displayed.");
     }
-    @Description("Сheck for successful file upload.")
+    @Description("Check for successful file upload.")
     @Severity(SeverityLevel.NORMAL)
     @Test(description = "Тест на загрузку файла.")
     public void LoadFileTest()
@@ -109,6 +111,40 @@ public class UItests extends BaseTest {
         myProjectsPage.loadFile();
         Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());
         logger.info("LoadFileTest. File is load.");
+
+    }
+    @Description("Use incorrect data test.")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на использование некорректных данных.")
+    public void IncorrectDataTest()
+    {
+        open(ReadProperties.getUrl());
+        String inputEmail = "abeganskaya98gmail.com";
+        myProjectsPage.setIncorrectEmail(inputEmail);
+        Assert.assertFalse(myProjectsPage.getProjectsPage().isDisplayed());
+        logger.info("IncorrectDataTest.");
+
+    }
+    @Description("Reproduce defect test")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на воспроизведение дефекта. Проект не найден")
+    public void ReproduceDefectTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        Assert.assertTrue(myProjectsPage.getDefectProject().isEnabled());
+        logger.info("Reproduce defect test.");
+
+    }
+
+    @Test(description = "Тест на удаление сущности.")
+    public void DeleteEntityTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.deleteProject();
+        Assert.assertFalse(myProjectsPage.getProject().isDisplayed());
+        logger.info("DeleteEntityTest. Project is delete.");
 
     }
 
