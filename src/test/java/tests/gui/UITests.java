@@ -2,6 +2,7 @@ package tests.gui;
 
 
 import baseEntities.BaseTest;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
@@ -14,6 +15,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.Test;
 import utils.configuration.ReadProperties;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static utils.TestUtils.generateString;
 
@@ -23,7 +25,7 @@ public class UITests extends BaseTest {
 
     @Description("Verifies the presence of a pop-up message.")
     @Severity(SeverityLevel.NORMAL)
-    @Test(description = "тест на проверку всплывающего сообщения.")
+    @Test(description = "тест на проверку всплывающего сообщения.", priority = 1)
     public void PopUpMessageTest() {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
@@ -42,7 +44,7 @@ public class UITests extends BaseTest {
 
     @Description("Verifies the process of adding project.")
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Тест на создание сущности")
+    @Test(description = "Тест на создание сущности", priority = 2)
     public void CreationEntityTest  () {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
@@ -54,7 +56,7 @@ public class UITests extends BaseTest {
     }
     @Description("Checking the input field for boundary values.")
     @Severity(SeverityLevel.MINOR)
-    @Test(description = "тест на проверку поля для ввода на граничные значения.")
+    @Test(description = "тест на проверку поля для ввода на граничные значения.", priority = 3)
     public void BoundaryValuesTest (){
 
         open(ReadProperties.getUrl());
@@ -74,7 +76,7 @@ public class UITests extends BaseTest {
     }
     @Description("Сhecks whether it is possible to enter data exceeding the permissible limits.")
     @Severity(SeverityLevel.NORMAL)
-    @Test(description = " Test for input of data exceeding permissible limits")
+    @Test(description = " Test for input of data exceeding permissible limits", priority = 4)
     public void ExceedingMaxTest (){
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
@@ -89,19 +91,19 @@ public class UITests extends BaseTest {
 
     @Description("Check for successful display of the dialog box.")
     @Severity(SeverityLevel.NORMAL)
-    @Test(description = "Тест на отображение диалогового окна.")
-    public void DialogBoxTest()
-    {
+    @Test(description = "Тест на отображение диалогового окна.", priority = 5)
+    public void DialogBoxTest() throws InterruptedException {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
 
         myProjectsPage.showDialog();
         Assert.assertTrue(myProjectsPage.getDialogBox().isEnabled());
         logger.info("DialogBoxTest. Dialog box is displayed.");
+        Thread.sleep(100000);
     }
-    @Description("Сheck for successful file upload.")
+    @Description("Check for successful file upload.")
     @Severity(SeverityLevel.NORMAL)
-    @Test(description = "Тест на загрузку файла.")
+    @Test(description = "Тест на загрузку файла.", priority = 6)
     public void LoadFileTest()
     {
         open(ReadProperties.getUrl());
@@ -109,6 +111,40 @@ public class UITests extends BaseTest {
         myProjectsPage.loadFile();
         Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());
         logger.info("LoadFileTest. File is load.");
+
+    }
+    @Description("Use incorrect data test.")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на использование некорректных данных.", priority = 7)
+    public void IncorrectDataTest()
+    {
+        open(ReadProperties.getUrl());
+        String inputEmail = "abeganskaya98gmail.com";
+        myProjectsPage.setIncorrectEmail(inputEmail);
+        Assert.assertFalse(myProjectsPage.getProjectsPage().isDisplayed());
+        logger.info("IncorrectDataTest.");
+
+    }
+    @Description("Reproduce defect test")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Тест на воспроизведение дефекта. Проект не найден", priority = 8)
+    public void ReproduceDefectTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        Assert.assertTrue(myProjectsPage.getDefectProject().isEnabled());
+        logger.info("Reproduce defect test.");
+
+    }
+
+    @Test(description = "Тест на удаление сущности.", priority = 9)
+    public void DeleteEntityTest()
+    {
+        open(ReadProperties.getUrl());
+        loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
+        myProjectsPage.deleteProject();
+        Assert.assertFalse(myProjectsPage.getProject().isDisplayed());
+        logger.info("DeleteEntityTest. Project is delete.");
 
     }
 
