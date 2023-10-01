@@ -24,7 +24,7 @@ public abstract class BaseTest {
 
         loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();
-
+        System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\bin\\chromedriver.exe");
         open(ReadProperties.getUrl());
     }
 
