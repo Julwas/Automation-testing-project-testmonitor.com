@@ -1,6 +1,9 @@
 package baseEntities;
 
+
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.selenide.AllureSelenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -22,9 +25,12 @@ public abstract class BaseTest {
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.timeout = 25000;
 
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        open();
+
         loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();
-
+        System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\bin\\chromedriver.exe");
         open(ReadProperties.getUrl());
     }
 
