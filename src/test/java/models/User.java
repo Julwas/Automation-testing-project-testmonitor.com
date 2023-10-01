@@ -24,8 +24,8 @@ public class User {
     @JsonProperty("admin")
     @EqualsAndHashCode.Exclude
     private boolean admin;
-    @SerializedName(value = "userId")
-    @JsonProperty("userId")
+    @SerializedName(value = "id")
+    @JsonProperty("id")
     private int userId;
 
 }

@@ -3,9 +3,10 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.SerializedName;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.testng.ITestResult;
 
+import lombok.*;
+
+@Data
 @Getter
 @Builder
 @NoArgsConstructor
@@ -16,7 +17,7 @@ import org.testng.ITestResult;
 public class Project {
 
     @EqualsAndHashCode.Exclude
-    @SerializedName(value = "Id")
+    @SerializedName(value = "id")
     private int projectId;
 
     private String name;

@@ -60,8 +60,7 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
             logger.info(p);
         }
 
-        Assert.assertEquals(actualProjects.get(2), expectedProject);
+       Assert.assertEquals(actualProjects.get(11), expectedProject);
         logger.info("Last added project is in the list");
-
     }
 }

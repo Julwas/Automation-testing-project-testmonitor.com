@@ -31,7 +31,6 @@ public class UITests extends BaseTest {
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
 
         myProjectsPage.checkPopUpMessage();
-
         String expectedText = "View comments";
         SelenideElement elementText = $
                 (By.xpath("//*[contains(text(),'View comments')]"));

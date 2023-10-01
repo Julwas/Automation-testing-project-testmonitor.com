@@ -6,39 +6,32 @@ import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class MyProjectsPage extends BasePage {
     private final static String pagePath = "/settings/projects";
-    private final By projectPageLocator = By.xpath("//h1[contains(text(), 'Projects')]");
-    private final By manageButtonLocator = By.xpath("//a[contains(text(),'Manage Projects')]");
+    private final By menageButtonLocator = By.xpath("//a[contains(text(),'Manage Projects')]");
     private final By createButtonLocator = By.xpath("//button[contains(text(),'Create project...')]");
     private final By nameInputLocator = By.xpath("//input[starts-with(@id, 'field')]");
     private final By buttonFeaturesLocator = By.xpath("//span[contains(text(),'Features')]");
     private final By buttonTemplateLocator = By.xpath("//button//span[contains(text(),'Template')]");
     private final By buttonCreateLocator = By.xpath("//span[contains(text(),'Create')]");
     private final By projectLocator = By.xpath("//h3[contains(text(),'myProject')]");
-    private final By projectDefectLocator = By.xpath("//h3[contains(text(),'myProjectNew')]");
     private final By buttonLocator = By.xpath("//a[@class='button is-primary has-icon is-small']");
     private final By myWorkLocator = By.xpath("//a[contains(text(),'My Work')]");
     private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
     private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test.jpg')]");
     private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
     private final By saveChangesLocator = By.xpath("//svg[@class='svg-inline--fa fa-floppy-disk']");
-    private final By emailInputLocator = By.xpath("//input[@type = 'email']");
-    private final By logInButtonLocator = By.tagName("button");
-    private final By callDropDownLocator = By.xpath("//div[@class='dropdown-component']");
-    private final By dropDownItemLocator = By.xpath("//*[@class='dropdown-menu']//*[contains(text(),'Archive...')]");
-    private final By archiveAcceptButtonLocator = By.xpath("//button[@class='button is-danger']");
+    private final By emailIncorrectMessageLocator = By.xpath("//span[contains(text(), 'The email address must be a valid email address.')]");
     @Override
     protected By getPageIdentifier() {
         return null;
     }
-    public SelenideElement getProjectsPage(){return $(projectPageLocator);}
-    public SelenideElement getManageButton() {
-        return $(manageButtonLocator);
+    public SelenideElement getMenageButton() {
+        return $(menageButtonLocator);
     }
     public SelenideElement getCreateButton() {
         return $(createButtonLocator);
@@ -54,7 +47,6 @@ public class MyProjectsPage extends BasePage {
         return $(buttonCreateLocator);
     }
     public SelenideElement getProject() {return $(projectLocator);}
-    public SelenideElement getDefectProject() {return $(projectDefectLocator);}
     public SelenideElement getButton() {return $(buttonLocator);}
 
     public SelenideElement getMyWorkButton(){return $(myWorkLocator).shouldBe(visible, Duration.ofSeconds(60));}
@@ -62,15 +54,8 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
     public SelenideElement saveChangesButton() {return $(saveChangesLocator);}
-    public SelenideElement getEmailInputBox() { return $(emailInputLocator);}
-    public SelenideElement getLogInButton() {
-        return $(logInButtonLocator);
-    }
-    public SelenideElement getDropDownButton() {return $(callDropDownLocator);}
-    public SelenideElement getDropDownItem() {return  $(dropDownItemLocator);}
-    public SelenideElement getAcceptArchiveButton() {return $(archiveAcceptButtonLocator);}
     public void createProject(String name) {
-        getManageButton().click();
+        getMenageButton().click();
         getCreateButton().click();
         getNameInput().setValue(name);
         getButtonFeatures().click();
@@ -78,17 +63,16 @@ public class MyProjectsPage extends BasePage {
         getButtonCreate().click();
     }
     public void checkPopUpMessage(){
-
         getMyWorkButton().click();
         getButton().click();
     }
     public void openProject(){
-        getManageButton().click();
+        getMenageButton().click();
         getCreateButton().click();
     }
     public void showDialog ()
     {
-        getManageButton().click();
+        getMenageButton().click();
         getCreateButton().click();
     }
     public void loadFile()
@@ -100,27 +84,11 @@ public class MyProjectsPage extends BasePage {
 
 
     }
-    public void deleteProject()
-    {
-        getManageButton().click();
-        getProject().click();
-        getDropDownButton().click();
-        getDropDownItem().click();
-        getAcceptArchiveButton().click();
-
-    }
-    public void setIncorrectEmail (String email)
-        {
-            getEmailInputBox().setValue(email);
-
-
-        }
     public String getProjectName() {
         return getNameInput().getValue();
     }
 
     public void setProjectName(String name) {
         getNameInput().setValue(name);
-        getLogInButton().click();
     }
 }
