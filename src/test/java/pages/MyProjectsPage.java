@@ -3,7 +3,7 @@ package pages;
 import baseEntities.BasePage;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
+import org.apache.commons.lang3.SystemUtils;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -90,12 +90,22 @@ public class MyProjectsPage extends BasePage {
         getManageButton().click();
         getCreateButton().click();
     }
-    public void loadFile()
+    public static String getPathToFile() {
+        String pathToFile;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath()
+                    .replace("/", "\\").substring(1);
+        } else {
+            pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();
+        }
+        return pathToFile;
+    }
+    public void loadFile(String path)
     {
         getMyWorkButton().click();
         getButton().click();
-        String pathToFile = MyProjectsPage.class.getClassLoader().getResource("test.jpg").getPath();
-        getDownloadFileButton().sendKeys(pathToFile.substring(1));
+
+        getDownloadFileButton().sendKeys(path);
 
 
     }

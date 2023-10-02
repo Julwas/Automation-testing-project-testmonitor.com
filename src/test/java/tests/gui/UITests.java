@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
+import pages.MyProjectsPage;
 import utils.configuration.ReadProperties;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -107,7 +108,7 @@ public class UITests extends BaseTest {
     {
         open(ReadProperties.getUrl());
         loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
-        myProjectsPage.loadFile();
+        myProjectsPage.loadFile(MyProjectsPage.getPathToFile());
         Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());
         logger.info("LoadFileTest. File is load.");
 
