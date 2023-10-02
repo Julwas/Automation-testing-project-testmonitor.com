@@ -34,7 +34,7 @@ public abstract class BaseTest {
         Configuration.timeout = 25000;
         Configuration.browserSize = "1920x1080";
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        open(ReadProperties.getUrl());
+       // open(ReadProperties.getUrl());
     }
 
     @AfterMethod
