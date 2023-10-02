@@ -41,7 +41,7 @@ public abstract class BaseTest {
     }
 
     @AfterMethod
-    public void tearDown() {// сloses the browser in case of an error
+    public void tearDown() {
         closeWebDriver();
     }
 

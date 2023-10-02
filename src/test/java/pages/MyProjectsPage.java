@@ -27,12 +27,12 @@ public class MyProjectsPage extends BasePage {
     private final By downloadLocator = By.xpath("//input[@class='dz-hidden-input']");
     private final By downloadedPictureLocator = By.xpath("//p[contains(text(),'test.jpg')]");
     private final By dialogBoxLocator = By.xpath("//div[@class='modal-card']");
-    private final By saveChangesLocator = By.xpath("//svg[@class='svg-inline--fa fa-floppy-disk']");
     private final By emailInputLocator = By.xpath("//input[@type = 'email']");
     private final By logInButtonLocator = By.tagName("button");
     private final By callDropDownLocator = By.xpath("//div[@class='dropdown-component']");
     private final By dropDownItemLocator = By.xpath("//*[@class='dropdown-menu']//*[contains(text(),'Archive...')]");
     private final By archiveAcceptButtonLocator = By.xpath("//button[@class='button is-danger']");
+    private final By  elementTextLocator = (By.xpath("//*[contains(text(),'View comments')]"));
     @Override
     protected By getPageIdentifier() {
         return null;
@@ -63,12 +63,12 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
     public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
     public SelenideElement getEmailInputBox() { return $(emailInputLocator);}
-    public SelenideElement getLogInButton() {
-        return $(logInButtonLocator);
-    }
     public SelenideElement getDropDownButton() {return $(callDropDownLocator);}
     public SelenideElement getDropDownItem() {return  $(dropDownItemLocator);}
     public SelenideElement getAcceptArchiveButton() {return $(archiveAcceptButtonLocator);}
+    public SelenideElement getElementText() {return $(elementTextLocator);}
+
+
     public void createProject(String name) {
         getManageButton().click();
         getCreateButton().click();
@@ -121,4 +121,5 @@ public class MyProjectsPage extends BasePage {
     public void setProjectName(String name) {
         getNameInput().setValue(name);
     }
+
 }
