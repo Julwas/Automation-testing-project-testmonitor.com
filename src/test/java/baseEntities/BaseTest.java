@@ -24,8 +24,8 @@ public abstract class BaseTest {
     public void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true).savePageSource(true));
-        open();
 
+        org.apache.log4j.BasicConfigurator.configure();
         loginStep = new LoginStep();
 
         myProjectsPage = new MyProjectsPage();
@@ -33,12 +33,15 @@ public abstract class BaseTest {
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.timeout = 25000;
         Configuration.browserSize = "1920x1080";
-        System.setProperty("webdriver.chrome.driver", "C:/WebDriver/bin/chromedriver.exe");
+        Configuration.fastSetValue = true;
+        Configuration.headless = false;
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+
         open(ReadProperties.getUrl());
     }
 
     @AfterMethod
-    public void tearDown() {// сloses the browser in case of an error
+    public void tearDown() {
         closeWebDriver();
     }
 
