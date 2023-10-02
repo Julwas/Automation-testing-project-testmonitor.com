@@ -22,15 +22,18 @@ public abstract class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        Configuration.baseUrl = ReadProperties.getUrl();
-        Configuration.timeout = 25000;
-
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true).savePageSource(true));
         open();
 
         loginStep = new LoginStep();
+
         myProjectsPage = new MyProjectsPage();
-        System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\bin\\chromedriver.exe");
+
+        Configuration.baseUrl = ReadProperties.getUrl();
+        Configuration.timeout = 25000;
+        Configuration.browserSize = "1920x1080";
+        System.setProperty("webdriver.chrome.driver", "C:/WebDriver/bin/chromedriver.exe");
         open(ReadProperties.getUrl());
     }
 
