@@ -26,10 +26,6 @@ public abstract class BaseTest {
                 .screenshots(true).savePageSource(true));
         open();
 
-        loginStep = new LoginStep();
-
-        myProjectsPage = new MyProjectsPage();
-
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.timeout = 25000;
         Configuration.browserSize = "1920x1080";
@@ -37,6 +33,9 @@ public abstract class BaseTest {
         Configuration.headless = false;
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         open(ReadProperties.getUrl());
+        loginStep = new LoginStep();
+
+        myProjectsPage = new MyProjectsPage();
     }
 
     @AfterMethod
