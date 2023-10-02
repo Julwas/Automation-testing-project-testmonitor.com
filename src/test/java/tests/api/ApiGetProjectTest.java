@@ -15,6 +15,7 @@ import java.io.FileReader;
 import static io.restassured.RestAssured.given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.Endpoints;
 
 public class ApiGetProjectTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetProjectTest.class);
@@ -24,7 +25,7 @@ public class ApiGetProjectTest extends BaseApiTest {
         int projectId = 3;
         Gson gson = new Gson();
 
-        String endpoint = "/api/v1/projects/{projectId}";
+
 
         String pathToFile = ApiGetProjectTest.class.getClassLoader().getResource("expectedProject.json").getPath();
         FileReader reader = new FileReader(pathToFile);
@@ -39,7 +40,7 @@ public class ApiGetProjectTest extends BaseApiTest {
                 .body(expectedProject, ObjectMapperType.GSON)
                 .log().all()
                 .when()
-                .get(endpoint)
+                .get(Endpoints.GET_PROJECT)
                 .then()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)

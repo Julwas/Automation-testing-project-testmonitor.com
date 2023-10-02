@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.Endpoints;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,7 +32,6 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
 
         Gson gson = new Gson();
 
-        String endpoint = "/api/v1/projects";
 
         String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
         FileReader reader = new FileReader(pathToFile);
@@ -42,7 +42,7 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
                 .body(expectedProject, ObjectMapperType.GSON)
                 .log().all()
                 .when()
-                .get(endpoint)
+                .get(Endpoints.GET_AllPROJECTS)
                 .then()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)
