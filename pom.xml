@@ -15,7 +15,7 @@
         <aspectj.version>1.9.5</aspectj.version>
         <testng.version>7.7.1</testng.version>
         <selenium-java.version>4.10.0</selenium-java.version>
-        <webdrivermanager.version>5.5.3</webdrivermanager.version>
+        <webdrivermanager.version>5.4.1</webdrivermanager.version>
     </properties>
 
     <dependencies>
