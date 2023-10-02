@@ -1,6 +1,6 @@
 package baseEntities;
 
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.selenide.AllureSelenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -25,13 +25,14 @@ public abstract class BaseTest {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true).savePageSource(true));
         open();
-        setConfigurationProp();
+        WebDriverManager.chromedriver().setup();
+        // setConfigurationProp();
         loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();
 
     }
 
-    private void setConfigurationProp() {
+    /*private void setConfigurationProp() {
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.timeout = 8000;
         Configuration.browserSize = "1920x1080";
@@ -39,7 +40,7 @@ public abstract class BaseTest {
         Configuration.headless = false;
         //   Configuration.holdBrowserOpen = true;
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-    }
+    }*/
 
     @AfterMethod
     public void tearDown() {// сloses the browser in case of an error
