@@ -25,6 +25,10 @@ public abstract class BaseTest {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true).savePageSource(true));
         open();
+        org.apache.log4j.BasicConfigurator.configure();
+        loginStep = new LoginStep();
+
+        myProjectsPage = new MyProjectsPage();
 
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.timeout = 25000;
@@ -32,10 +36,8 @@ public abstract class BaseTest {
         Configuration.fastSetValue = true;
         Configuration.headless = false;
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        open(ReadProperties.getUrl());
-        loginStep = new LoginStep();
 
-        myProjectsPage = new MyProjectsPage();
+        open(ReadProperties.getUrl());
     }
 
     @AfterMethod
