@@ -23,9 +23,9 @@ public class ReadProperties {
         return properties.getProperty("myaccurl");
     }
 
-  /*  public static String browserName() {
+    public static String browserName() {
         return properties.getProperty("browser");
-    }*/
+    }
 
     public static String email() {
         return properties.getProperty("email");
