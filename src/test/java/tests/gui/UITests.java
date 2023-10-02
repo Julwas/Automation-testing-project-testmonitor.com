@@ -100,7 +100,6 @@ public class UITests extends BaseTest {
     @Test(description = "Тест на загрузку файла.", priority = 6)
     public void LoadFileTest()
     {
-
         loginStep.successLogin(ReadProperties.email(),ReadProperties.password());
         myProjectsPage.loadFile(MyProjectsPage.getPathToFile());
         Assert.assertTrue(myProjectsPage.getDownloadedPicture().isEnabled());

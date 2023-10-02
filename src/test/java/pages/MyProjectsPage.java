@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
-
+import org.apache.commons.lang3.SystemUtils;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -104,10 +104,7 @@ public class MyProjectsPage extends BasePage {
     {
         getMyWorkButton().click();
         getButton().click();
-
         getDownloadFileButton().sendKeys(path);
-
-
     }
     public void deleteProject()
     {
