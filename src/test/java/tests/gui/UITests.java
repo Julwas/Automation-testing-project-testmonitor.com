@@ -28,14 +28,12 @@ public class UITests extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test(description = "тест на проверку всплывающего сообщения.", priority = 1)
     public void PopUpMessageTest() {
-        open(ReadProperties.getUrl());
+
         loginStep.successLogin(ReadProperties.email(), ReadProperties.password());
 
         myProjectsPage.checkPopUpMessage();
         String expectedText = "View comments";
-        SelenideElement elementText = $
-                (By.xpath("//*[contains(text(),'View comments')]"));
-        String actualText = elementText.getText();
+        String actualText = myProjectsPage.getElementText().getText();
         Assert.assertEquals(actualText.contains(actualText),
                 expectedText.contains(expectedText), "There is no symbols View comments");
 

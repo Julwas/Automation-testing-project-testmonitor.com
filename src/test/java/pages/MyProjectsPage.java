@@ -33,6 +33,7 @@ public class MyProjectsPage extends BasePage {
     private final By callDropDownLocator = By.xpath("//div[@class='dropdown-component']");
     private final By dropDownItemLocator = By.xpath("//*[@class='dropdown-menu']//*[contains(text(),'Archive...')]");
     private final By archiveAcceptButtonLocator = By.xpath("//button[@class='button is-danger']");
+    private final By  elementTextLocator = (By.xpath("//*[contains(text(),'View comments')]"));
     @Override
     protected By getPageIdentifier() {
         return null;
@@ -69,6 +70,7 @@ public class MyProjectsPage extends BasePage {
     public SelenideElement getDropDownButton() {return $(callDropDownLocator);}
     public SelenideElement getDropDownItem() {return  $(dropDownItemLocator);}
     public SelenideElement getAcceptArchiveButton() {return $(archiveAcceptButtonLocator);}
+    public SelenideElement getElementText() {return $(elementTextLocator);}
     public void createProject(String name) {
         getManageButton().click();
         getCreateButton().click();
