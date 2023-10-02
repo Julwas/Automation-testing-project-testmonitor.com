@@ -24,7 +24,7 @@ public abstract class BaseTest {
     public void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true).savePageSource(true));
-        open();
+
         org.apache.log4j.BasicConfigurator.configure();
         loginStep = new LoginStep();
 
