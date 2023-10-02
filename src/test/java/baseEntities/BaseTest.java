@@ -25,16 +25,20 @@ public abstract class BaseTest {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true).savePageSource(true));
         open();
-
+        setConfigurationProp();
         loginStep = new LoginStep();
-
         myProjectsPage = new MyProjectsPage();
 
+    }
+
+    private void setConfigurationProp() {
         Configuration.baseUrl = ReadProperties.getUrl();
-        Configuration.timeout = 25000;
+        Configuration.timeout = 8000;
         Configuration.browserSize = "1920x1080";
+        Configuration.fastSetValue = true;
+        Configuration.headless = false;
+        //   Configuration.holdBrowserOpen = true;
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        open(ReadProperties.getUrl());
     }
 
     @AfterMethod
