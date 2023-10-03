@@ -23,7 +23,6 @@ import java.io.FileReader;
 
 public class ApiTests extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiTests.class);
-
     private Project actualProject;
 
     @Test
@@ -32,7 +31,6 @@ public class ApiTests extends BaseApiTest {
         Gson gson = new Gson();
 
         String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
-
         FileReader reader = new FileReader(pathToFile);
 
         Project expectedProject = gson.fromJson(reader, Project.class);

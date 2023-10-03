@@ -28,17 +28,18 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
     public void getAllProjects() throws FileNotFoundException {
 
         Gson gson = new Gson();
+
         ApiGetProjectTest expectedProject = new ApiGetProjectTest();
         expectedProject.getProject();
 
         Response response = new ProjectAdapter().getAllProjects();
+
         Type listType = new TypeToken<ArrayList<Project>>() {
         }.getType();
         JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
         JsonArray respAsJsonArray = respAsJsonObject.getAsJsonArray("data");
 
         List<Project> actualProjects = gson.fromJson(respAsJsonArray, listType);
-
         logger.info("List of all projects: ");
         for (Project p :
                 actualProjects) {
