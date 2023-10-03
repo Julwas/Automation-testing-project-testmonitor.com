@@ -1,5 +1,6 @@
 package tests.api;
 
+import adapters.ProjectAdapter;
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,13 +17,9 @@ import org.testng.annotations.Test;
 import utils.Endpoints;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import static io.restassured.RestAssured.given;
-
 
 public class ApiGetAllProjectsTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetAllProjectsTest.class);
@@ -31,22 +28,10 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
     public void getAllProjects() throws FileNotFoundException {
 
         Gson gson = new Gson();
+        ApiGetProjectTest expectedProject = new ApiGetProjectTest();
+        expectedProject.getProject();
 
-
-        String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
-        FileReader reader = new FileReader(pathToFile);
-
-        Project expectedProject = gson.fromJson(reader, Project.class);
-
-        Response response = given()
-                .body(expectedProject, ObjectMapperType.GSON)
-                .log().all()
-                .when()
-                .get(Endpoints.GET_AllPROJECTS)
-                .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().response();
+        Response response = new ProjectAdapter().getAllProjects();
         Type listType = new TypeToken<ArrayList<Project>>() {
         }.getType();
         JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
@@ -60,7 +45,7 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
             logger.info(p);
         }
 
-       Assert.assertEquals(actualProjects.get(11), expectedProject);
+       Assert.assertEquals(expectedProject.getActualProject(), actualProjects.get(actualProjects.size() - 1));
         logger.info("Last added project is in the list");
     }
 }
