@@ -13,7 +13,9 @@ public abstract class BasePage {
     public void openPageByUrl(String pagePath) {
         open(pagePath);
     }
+
     protected abstract By getPageIdentifier();
+
     public boolean isPageOpened() {
         $(getPageIdentifier()).shouldBe(visible);
         return false;

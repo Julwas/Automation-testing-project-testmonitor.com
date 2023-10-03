@@ -31,7 +31,7 @@ public class ProjectAdapter {
                 .extract().response();
     }
 
-    public Response get(Project expectedProject){
+    public Response get(Project expectedProject) {
         int projectId = 3;
         return given()
                 .pathParams("projectId", projectId)
@@ -42,6 +42,20 @@ public class ProjectAdapter {
                 .then()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .response();
+    }
+
+    public Response getNegativeProject() {
+        int projectId = 500;
+        return given()
+                .pathParams("projectId", projectId)
+                .log().all()
+                .when()
+                .get(Endpoints.GET_PROJECT)
+                .then()
+                .log().status()
+                .statusCode(HttpStatus.SC_NOT_FOUND)
                 .extract()
                 .response();
     }
