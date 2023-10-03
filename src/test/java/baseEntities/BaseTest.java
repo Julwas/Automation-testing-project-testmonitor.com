@@ -26,8 +26,8 @@ public abstract class BaseTest {
                 .screenshots(true).savePageSource(true));
 
         org.apache.log4j.BasicConfigurator.configure();
-        loginStep = new LoginStep();
 
+        loginStep = new LoginStep();
         myProjectsPage = new MyProjectsPage();
 
         Configuration.baseUrl = ReadProperties.getUrl();

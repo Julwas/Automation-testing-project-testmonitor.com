@@ -1,5 +1,6 @@
 package tests.api;
 
+import adapters.ProjectAdapter;
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,15 +14,12 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.Endpoints;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import static io.restassured.RestAssured.given;
-
 
 public class ApiGetAllProjectsTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetAllProjectsTest.class);
@@ -31,36 +29,24 @@ public class ApiGetAllProjectsTest extends BaseApiTest {
 
         Gson gson = new Gson();
 
-        String endpoint = "/api/v1/projects";
+        ApiGetProjectTest expectedProject = new ApiGetProjectTest();
+        expectedProject.getProject();
 
-        String pathToFile = ApiTests.class.getClassLoader().getResource("expectedProject.json").getPath();
-        FileReader reader = new FileReader(pathToFile);
+        Response response = new ProjectAdapter().getAllProjects();
 
-        Project expectedProject = gson.fromJson(reader, Project.class);
-
-        Response response = given()
-                .body(expectedProject, ObjectMapperType.GSON)
-                .log().all()
-                .when()
-                .get(endpoint)
-                .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .extract().response();
         Type listType = new TypeToken<ArrayList<Project>>() {
         }.getType();
         JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
         JsonArray respAsJsonArray = respAsJsonObject.getAsJsonArray("data");
 
         List<Project> actualProjects = gson.fromJson(respAsJsonArray, listType);
-
         logger.info("List of all projects: ");
         for (Project p :
                 actualProjects) {
             logger.info(p);
         }
 
-       Assert.assertEquals(actualProjects.get(11), expectedProject);
+       Assert.assertEquals(expectedProject.getActualProject(), actualProjects.get(actualProjects.size() - 1));
         logger.info("Last added project is in the list");
     }
 }

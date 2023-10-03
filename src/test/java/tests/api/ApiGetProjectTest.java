@@ -1,30 +1,28 @@
 package tests.api;
 
+import adapters.ProjectAdapter;
 import baseEntities.BaseApiTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import models.Project;
-import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import static io.restassured.RestAssured.given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ApiGetProjectTest extends BaseApiTest {
     static Logger logger = LogManager.getLogger(ApiGetProjectTest.class);
     private Project actualProject;
+    public Project getActualProject() {
+        return actualProject;}
     @Test
     public void getProject() throws FileNotFoundException {
-        int projectId = 3;
-        Gson gson = new Gson();
 
-        String endpoint = "/api/v1/projects/{projectId}";
+        Gson gson = new Gson();
 
         String pathToFile = ApiGetProjectTest.class.getClassLoader().getResource("expectedProject.json").getPath();
         FileReader reader = new FileReader(pathToFile);
@@ -34,17 +32,7 @@ public class ApiGetProjectTest extends BaseApiTest {
         String json = gson.toJson(expectedProject);
         System.out.println(json);
 
-        Response response = given()
-                .pathParams("projectId", projectId)
-                .body(expectedProject, ObjectMapperType.GSON)
-                .log().all()
-                .when()
-                .get(endpoint)
-                .then()
-                .log().body()
-                .statusCode(HttpStatus.SC_OK)
-                .extract()
-                .response();
+        Response response = new ProjectAdapter().get(expectedProject);
 
         JsonObject respAsJsonObject = gson.fromJson(response.getBody().asString(), JsonObject.class);
 
