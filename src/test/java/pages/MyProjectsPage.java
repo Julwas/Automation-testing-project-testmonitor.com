@@ -5,7 +5,9 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
+
 import org.apache.commons.lang3.SystemUtils;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -32,41 +34,88 @@ public class MyProjectsPage extends BasePage {
     private final By callDropDownLocator = By.xpath("//div[@class='dropdown-component']");
     private final By dropDownItemLocator = By.xpath("//*[@class='dropdown-menu']//*[contains(text(),'Archive...')]");
     private final By archiveAcceptButtonLocator = By.xpath("//button[@class='button is-danger']");
-    private final By  elementTextLocator = (By.xpath("//*[contains(text(),'View comments')]"));
+    private final By elementTextLocator = (By.xpath("//*[contains(text(),'View comments')]"));
+
     @Override
     protected By getPageIdentifier() {
         return null;
     }
+
     public SelenideElement getManageButton() {
         return $(manageButtonLocator);
     }
-    public SelenideElement getProjectsPage(){return $(projectPageLocator);}
-    public SelenideElement getDefectProject() {return $(projectDefectLocator);}
+
+    public SelenideElement getProjectsPage() {
+        return $(projectPageLocator);
+    }
+
+    public SelenideElement getDefectProject() {
+        return $(projectDefectLocator);
+    }
+
     public SelenideElement getCreateButton() {
         return $(createButtonLocator);
     }
-    public SelenideElement getNameInput() {return $(nameInputLocator).shouldBe(visible, Duration.ofSeconds(20));}
-     public SelenideElement getButtonFeatures() {
+
+    public SelenideElement getNameInput() {
+        return $(nameInputLocator).shouldBe(visible, Duration.ofSeconds(20));
+    }
+
+    public SelenideElement getButtonFeatures() {
         return $(buttonFeaturesLocator);
     }
-     public SelenideElement getButtonTemplate() {
+
+    public SelenideElement getButtonTemplate() {
         return $(buttonTemplateLocator);
     }
-     public SelenideElement getButtonCreate() {
+
+    public SelenideElement getButtonCreate() {
         return $(buttonCreateLocator);
     }
-    public SelenideElement getProject() {return $(projectLocator);}
-    public SelenideElement getButton() {return $(buttonLocator);}
 
-    public SelenideElement getMyWorkButton(){return $(myWorkLocator).shouldBe(visible, Duration.ofSeconds(60));}
-    public SelenideElement getDownloadFileButton(){return $(downloadLocator);}
-    public SelenideElement getDownloadedPicture(){return $(downloadedPictureLocator);}
-    public SelenideElement getDialogBox(){return $(dialogBoxLocator);}
-    public SelenideElement getEmailInputBox() { return $(emailInputLocator);}
-    public SelenideElement getDropDownButton() {return $(callDropDownLocator);}
-    public SelenideElement getDropDownItem() {return  $(dropDownItemLocator);}
-    public SelenideElement getAcceptArchiveButton() {return $(archiveAcceptButtonLocator);}
-    public SelenideElement getElementText() {return $(elementTextLocator);}
+    public SelenideElement getProject() {
+        return $(projectLocator);
+    }
+
+    public SelenideElement getButton() {
+        return $(buttonLocator);
+    }
+
+    public SelenideElement getMyWorkButton() {
+        return $(myWorkLocator).shouldBe(visible, Duration.ofSeconds(60));
+    }
+
+    public SelenideElement getDownloadFileButton() {
+        return $(downloadLocator);
+    }
+
+    public SelenideElement getDownloadedPicture() {
+        return $(downloadedPictureLocator);
+    }
+
+    public SelenideElement getDialogBox() {
+        return $(dialogBoxLocator);
+    }
+
+    public SelenideElement getEmailInputBox() {
+        return $(emailInputLocator);
+    }
+
+    public SelenideElement getDropDownButton() {
+        return $(callDropDownLocator);
+    }
+
+    public SelenideElement getDropDownItem() {
+        return $(dropDownItemLocator);
+    }
+
+    public SelenideElement getAcceptArchiveButton() {
+        return $(archiveAcceptButtonLocator);
+    }
+
+    public SelenideElement getElementText() {
+        return $(elementTextLocator);
+    }
 
 
     public void createProject(String name) {
@@ -77,19 +126,22 @@ public class MyProjectsPage extends BasePage {
         getButtonTemplate().click();
         getButtonCreate().click();
     }
-    public void checkPopUpMessage(){
+
+    public void checkPopUpMessage() {
         getMyWorkButton().click();
         getButton().click();
     }
-    public void openProject(){
+
+    public void openProject() {
         getManageButton().click();
         getCreateButton().click();
     }
-    public void showDialog ()
-    {
+
+    public void showDialog() {
         getManageButton().click();
         getCreateButton().click();
     }
+
     public static String getPathToFile() {
         String pathToFile;
         if (SystemUtils.IS_OS_WINDOWS) {
@@ -100,14 +152,14 @@ public class MyProjectsPage extends BasePage {
         }
         return pathToFile;
     }
-    public void loadFile(String path)
-    {
+
+    public void loadFile(String path) {
         getMyWorkButton().click();
         getButton().click();
         getDownloadFileButton().sendKeys(path);
     }
-    public void deleteProject()
-    {
+
+    public void deleteProject() {
         getManageButton().click();
         getProject().click();
         getDropDownButton().click();
@@ -115,12 +167,13 @@ public class MyProjectsPage extends BasePage {
         getAcceptArchiveButton().click();
 
     }
-    public void setIncorrectEmail (String email)
-    {
+
+    public void setIncorrectEmail(String email) {
         getEmailInputBox().setValue(email);
 
 
     }
+
     public String getProjectName() {
         return getNameInput().getValue();
     }

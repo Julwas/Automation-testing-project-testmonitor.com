@@ -18,8 +18,8 @@ public class ReadProperties {
     public static String getUrl() {
         return properties.getProperty("url");
     }
-    public static String getMyAccountUrl()
-    {
+
+    public static String getMyAccountUrl() {
         return properties.getProperty("myaccurl");
     }
 
@@ -34,11 +34,17 @@ public class ReadProperties {
     public static String password() {
         return properties.getProperty("password");
     }
-public static String getToken() {return properties.getProperty("token");
+
+    public static String getToken() {
+        return properties.getProperty("token");
     }
-    public static String name() {return properties.getProperty("name");
+
+    public static String name() {
+        return properties.getProperty("name");
     }
-    public static int timeout() {return Integer.parseInt(properties.getProperty("timeout"));
+
+    public static int timeout() {
+        return Integer.parseInt(properties.getProperty("timeout"));
     }
 }
 
