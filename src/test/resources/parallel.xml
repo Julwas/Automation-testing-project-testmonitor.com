@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite  name="DiplomSuite" thread-count="2" parallel="classes">
+    <test name="Api">
+        <classes>
+            <class name="tests.api.ApiGetAllProjectsTest"/>
+            <class name="tests.api.ApiTests"/>
+        </classes>
+    </test>
+    <test name="Gui">
+        <classes>
+            <class name="tests.gui.UITests"/>
+        </classes>
+    </test>
+</suite>

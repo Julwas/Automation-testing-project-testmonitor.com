@@ -14,9 +14,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.5</aspectj.version>
         <testng.version>7.7.1</testng.version>
-        <selenium-java.version>4.10.0</selenium-java.version>
-        <webdrivermanager.version>5.5.3</webdrivermanager.version>
+        <selenium-java.version>4.11.0</selenium-java.version>
+        <webdrivermanager.version>5.4.1</webdrivermanager.version>
     </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
@@ -52,6 +53,12 @@
 
         <dependency>
             <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>2.24.0</version>
         </dependency>
@@ -60,6 +67,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.19.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
         </dependency>
 
         <dependency>
@@ -99,6 +112,9 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>target/test-classes/parallel.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
